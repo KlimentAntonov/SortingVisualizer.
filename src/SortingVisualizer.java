@@ -1,7 +1,11 @@
+package src;
+
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SortingVisualizer extends JFrame {
     private final JComboBox<String> sortingAlgorithmsComboBox;
@@ -12,17 +16,40 @@ public class SortingVisualizer extends JFrame {
     public SortingVisualizer(List<GraphicElement> elements) {
         this.elements = elements;
         setTitle("Sorting Visualizer");
-        setSize(800, 600);
+        setSize(1600, 1200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         sortingAlgorithmsComboBox = new JComboBox<>(new String[]{"Bubble sort", "Selection sort", "Insertion sort", "Merge sort", "Quick sort", "Heap sort"});
         sortButton = new JButton("Sort");
         panel = new JPanel();
 
+        panel.setLayout(null);
+        panel.setBounds(0,0,1600,1200);
+        panel.setBorder(new LineBorder(Color.RED,2));
+
+        sortingAlgorithmsComboBox.setBounds(10,10,200,30);
+        sortingAlgorithmsComboBox.setBorder(new LineBorder(Color.RED,2));
+
+        sortButton.setBounds(240,10,100,30);
+        sortButton.setBorder(new LineBorder(Color.RED,2));
+
         panel.add(sortingAlgorithmsComboBox);
         panel.add(sortButton);
 
-        add(panel, BorderLayout.NORTH);
+        JPanel imgPnl = new JPanel();
+        imgPnl.setBounds(0,-200,1600,1200);
+        imgPnl.setLayout(new GridLayout(1,5));
+        imgPnl.setBorder(new LineBorder(Color.RED,2));
+        imgPnl.setBackground(Color.RED);
+
+
+        for(GraphicElement el : elements) {
+            imgPnl.add(el.getImage());
+
+        }
+
+        panel.add(imgPnl);
+        add(panel);
 
         setVisible(true);
 
@@ -31,22 +58,33 @@ public class SortingVisualizer extends JFrame {
             switch (selectedAlgorithm) {
                 case "Bubble sort":
                     bubblesort();
+                    imgPnl.repaint();
+                    panel.repaint();
                     break;
                 case "Selection sort":
                     selectionsort();
+                    imgPnl.repaint();
+                    panel.repaint();
                     break;
                 case "Insertion sort":
                     insertionsort();
+                    imgPnl.repaint();
+                    panel.repaint();
                     break;
                 case "Merge sort":
                     mergeSort();
+                    imgPnl.repaint();
+                    panel.repaint();
                     break;
                 case "Quick sort":
                     quicksort();
+                    imgPnl.repaint();
+                    panel.repaint();
                     break;
             }
         });
     }
+
 
     private void bubblesort() {
         int n = elements.size();
@@ -266,4 +304,3 @@ public class SortingVisualizer extends JFrame {
     }
 
 }
-
